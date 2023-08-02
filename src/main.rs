@@ -1,5 +1,8 @@
 #![allow(unused)]
 use std::collections::HashMap;
+use std::fs;
+use std::time::SystemTime;
+use std::io;
 use clap::Parser;
 use walkdir::WalkDir;
 
@@ -10,6 +13,25 @@ struct Cli {
     file_ext: String,
 }
 
+fn is_recent (file_path: &str) -> bool {
+    /// determine how many days it was since the file was last modified,
+    /// and return true if it's less than a week
+    
+    let metadata = fs::metadata(file_path).expect("Failed to read metadata");
+
+    let modified = metadata.modified().expect("failed to read modified time");
+
+    let now = SystemTime::now(); 
+
+    let time_difference = now.duration_since(modified).expect("failed to find time difference");
+
+    let days = time_difference.as_secs() / (3600 * 24);
+
+    return days <= 7;
+}
+
+
+
 /// find files with given extension
 fn find_files_with_extension(extension: &str) -> Vec<String> {
 
@@ -18,7 +40,7 @@ fn find_files_with_extension(extension: &str) -> Vec<String> {
     for entry in WalkDir::new("/home/") {
         if let Ok(entry) = entry {
             if let Some(file_path) = entry.path().to_str() {
-                if file_path.ends_with(extension) {
+                if file_path.ends_with(extension) && is_recent(file_path) {
                     found_files.push(file_path.to_string());
                 }
             }
@@ -27,7 +49,6 @@ fn find_files_with_extension(extension: &str) -> Vec<String> {
 
     found_files
 }
-
 fn main() {
     /// store possible file extensions in hash map
     let mut file_extensions: HashMap<&str, &str> = HashMap::new();
