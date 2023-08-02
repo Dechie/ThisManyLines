@@ -1,5 +1,5 @@
 # ThisManyLines
-A Rust command line app that shows you how many lines of code you wrote this week :)
+A Rust command line app that shows you how many lines of code you wrote today :)
 
 this app will take two main modes: whole directory tree and specific folder.
 

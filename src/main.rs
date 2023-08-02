@@ -15,7 +15,7 @@ struct Cli {
 
 fn is_recent (file_path: &str) -> bool {
     /// determine how many days it was since the file was last modified,
-    /// and return true if it's less than a week
+    /// and return true if it's less than a day
     
     let metadata = fs::metadata(file_path).expect("Failed to read metadata");
 
@@ -25,9 +25,9 @@ fn is_recent (file_path: &str) -> bool {
 
     let time_difference = now.duration_since(modified).expect("failed to find time difference");
 
-    let days = time_difference.as_secs() / (3600 * 24);
+    let days = time_difference.as_secs() / (3600);
 
-    return days <= 7;
+    return days <= 24;
 }
 
 
