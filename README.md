@@ -11,6 +11,7 @@ therefore it will take a second argument as the language/framework name.
 specific folder mode: this will work on a folder that you will specify for it. it will be aimed at analyzing the project you're recently working on.
 
  ##usage:
+
     ```
     manylines [OPTION]
 
