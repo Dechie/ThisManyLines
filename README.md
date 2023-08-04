@@ -12,9 +12,9 @@ specific folder mode: this will work on a folder that you will specify for it. i
 
  **usage**:
 
-    ```manylines [OPTION]```
+    manylines [OPTION]
 
-    ```-s --specific <specific> analyze a specific directory```
+    -s --specific <specific> analyze a specific directory
 
 so the command would be like: 
 
